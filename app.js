@@ -14,18 +14,19 @@ app.use(express.static('public'));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-// It's a squirrel!
+// It's a squirrel! GET that text
 app.get('/hello-squirrel', function (req, res){
     res.send('Hello squirrel! Again! Again!');
 })
 
-// Greetings with a dog!
+// Greetings with a dog! GET that dog gif!
 app.get('/hello-gif', function (req, res) {
   var gifUrl = 'https://media2.giphy.com/media/gYBVM1igrlzH2/giphy.gif'
   res.render('hello-gif', {gifUrl: gifUrl})
 })
 
-// Extra page; basic about stuff
+// Extra page; basic about stuff.
+//Just gets the data from the html in handlebars
 app.get('/about', function(req, res){
     res.render('about')
 })
@@ -35,7 +36,7 @@ app.get('/about', function(req, res){
 //    res.render('home')
 //})
 
-// Grabs name from URL and adds it into greeting string
+// Grabs name from URL and you get a greeting string based from it.
 app.get('/greetings/:name', function (req, res) {
     var name = req.params.name;
     res.render('greetings', {name: name});
@@ -46,7 +47,7 @@ app.get('/', function (req, res) {
     // Sends response back to server for my sake
     console.log(res)
 
-    // Giphy search API; grab the term and searches gifs related to it
+    // Giphy search API; grab the term and GETs gifs related to it
     // If no search term or first time booting, render home on its own
     giphy.search(req.query.term, function (err, response) {
         if(response == undefined){
